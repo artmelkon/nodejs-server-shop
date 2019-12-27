@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"files.autoSave": "afterDelay",
+		"files.autoSaveDelay": 1000,
+		"editor.fontSize": 10,
+		"editor.tabSize": 2,
+		"editor.detectIndentation": true
+	}
+}
