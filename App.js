@@ -1,8 +1,6 @@
 const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
-
-const mongoConnect = require('./utils/mongodb_launcher').mongoConnect;
 const User = require('./models/user');
 
 const app = express();
@@ -22,9 +20,9 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use((req, res, next) => {
-  User.findById('5e03f75a70964134f56e1d09')
+  User.findById('5fdf9940e80aa99c77778f98')
     .then(user => {
-      req.user = new User(user.name, user.email, user.cart, user._id);      
+      req.user = user;      
       next();
     })
     .catch(err => (console.log(err)))
@@ -37,7 +35,4 @@ app.use(shopRoutes);
 app.use(_404Controller);
 
 // this method used with mongodb module
-mongoConnect(() => {
-    // console.log(client);
-    app.listen(3000)
-});
+require('./utils/db_connect')(app);
