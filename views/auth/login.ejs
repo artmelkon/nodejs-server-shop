@@ -1,0 +1,19 @@
+<%- include('../inc/header.ejs') %>
+  <link rel="stylesheet" href="/css/forms.css" type="text/css" />
+  <link rel="stylesheet" href="/css/auth.css" type="text/css" />
+</head>
+<body>
+<%- include('../inc/nav.ejs') %>
+<main>
+<form class="login-form" action="/login" method="POST">
+  <div class="form-control">
+    <label for="email">Email</label>
+    <input type="email" name="email" id="email" placeholder="email">
+  </div>
+  <div class="form-control">
+    <label for="password">Password</label>
+    <input type="text" name="password" if="password" placeholder="password">
+  </div>
+  <input class="btn" type="submit" value="Login">
+</form>
+</main>

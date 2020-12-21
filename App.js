@@ -12,6 +12,7 @@ app.set('views', 'views');
 // imports
 const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
+const authRouts = require('./routes/auth');
 const _404Controller = require('./routes/404');
 
 
@@ -30,6 +31,7 @@ app.use((req, res, next) => {
 
 app.use('/admin', adminRoutes);
 app.use(shopRoutes);
+app.use(authRouts);
 
 // 404 not found page
 app.use(_404Controller);

@@ -13,12 +13,23 @@
       <li class="main-header__item">
         <a href="/orders" class="<%= path === '/orders' ? 'active' : null %>">Orders</a>
       </li>
+      <% if (isAuthenticated) { %>
+      <!-- Authentication 
+      ======================== -->
       <li class="main-header__item">
         <a href="/admin/add-product" class="<%= path === '/admin/add-product' ? 'active' : null %>">Add Product</a>
-      </li class="main-header__item">
+      </li>
       <li class="main-header__item">
         <a href="/admin/products" class="<%= path === '/admin/products' ? 'active' : null %>">Admin Products</a>
-      </li class="main-header__item">
+      </li>
+      <!-- End of Authentication
+      ============================= -->
+      <% } %>
+    </ul>
+    <ul class="main-header__item-list">
+      <li class="main-header__item">
+        <a class="<%= path === '/login' ? 'active' : '' %>" href="/login">Login</a>
+      </li>
     </ul>
   </nav>
 </header>
