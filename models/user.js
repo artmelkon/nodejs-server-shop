@@ -5,7 +5,7 @@ const userSchema = new Schema({
     type: String,
     required: true,
     minlength: 3,
-    maxlength: 255    
+    maxlength: 55    
   },
   email: {
     type: String,
@@ -13,6 +13,12 @@ const userSchema = new Schema({
     unique: true,
     minlength: 5,
     maxlength: 255
+  },
+  password: {
+    type: String,
+    required: true,
+    minlength: 5,
+    maxlength: 1024
   },
   cart: {
     items: [{
@@ -68,6 +74,10 @@ userSchema.methods.clearCart = function() {
   this.cart = { items: [] };
   return this.save();
 }
+
+// userSchema.methods.postRegister = function() {
+
+// }
 
 module.exports = mongoose.model('User', userSchema);
 

@@ -5,7 +5,8 @@ exports.getAddProduct = (req, res, next) => {
     docTitle: 'Add Product', 
     path: '/admin/add-product',
     editing: false,
-    isAuthenticated: req.isLoggedIn
+    isAuthenticated: req.session.isLoggedIn,
+    userId: req.userId
   });
 }
 
@@ -24,7 +25,7 @@ exports.postAddProduct = (req, res, next) => {
   product
     .save()
     .then(result => {
-      console.log('Create Product');
+      // console.log('Create Product');
       res.redirect('/admin/products');
     })
     .catch(err => console.log(err));
@@ -45,7 +46,8 @@ exports.getEditProduct = (req, res, next) => {
       path: '/admin/edit-product',
       editing: editMode,
       product: product,
-      isAuthenticated: req.isLoggedIn
+      isAuthenticated: req.isLoggedIn,
+      userId: req.userId
     });
   })
   .catch(err => (console.log(err)));
@@ -83,7 +85,8 @@ exports.getProducts = (req, res, next) => {
         prods: products,
         docTitle: 'Admin Products',
         path: '/admin/products',
-        isAuthenticated: req.isLoggedIn
+        isAuthenticated: req.isLoggedIn,
+        userId: req.userId
       });
     })
     .catch( err => (console.log(err)));

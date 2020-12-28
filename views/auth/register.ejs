@@ -5,16 +5,20 @@
 <body>
 <%- include('../inc/nav.ejs') %>
 <main>
-<form class="login-form" action="/login" method="POST">
+<form class="register-form" action="/register" method="post">
+  <div class="form-control">
+    <label for="name">Full Name</label>
+    <input type="text" name="name" id="name" placeholder="Full Name">
+  </div>
   <div class="form-control">
     <label for="email">Email</label>
-    <input type="email" name="email" id="email" placeholder="email">
+    <input type="email" name="email" id="email" placeholder="Email">
   </div>
   <div class="form-control">
     <label for="password">Password</label>
-    <input type="text" name="password" if="password" placeholder="password">
+    <input type="password" name="password" id="password" placeholder="password">
   </div>
-  <input class="btn" type="submit" value="Login">
+  <input type="submit" value="Register" class="btn">
 </form>
 </main>
 <%- include('../inc/footer.ejs') %>
