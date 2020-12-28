@@ -11,6 +11,7 @@
   "author": "Arthur",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.0.0",
     "body-parser": "^1.19.0",
     "chokidar": "^3.3.0",
     "connect-mongodb-session": "^2.4.1",

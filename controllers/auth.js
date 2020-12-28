@@ -1,3 +1,4 @@
+const bcrypt = require('bcrypt');
 const User = require('../models/user');
 
 exports.getLogin = (req, res, next) => {
@@ -38,15 +39,22 @@ exports.getRegister = (req, res) => {
 }
 
 exports.postRegister = async (req, res) => {
-  let user = await User.findOne({ email: req.body.email });
-  if(user) return res.status(400).send('The user already exists');
+  const name = req.body.name;
+  const email = req.body.email;
+  const password = req.body.password;
+  const confirmPassword = req.body.cofirmPassword;
+  let user = await User.findOne({ email: email });
+  if(user) return res.redirect('/register');
+  // if(user) return res.status(400).send('The user already exists');
+  
+  const hashedPassword = await bcrypt.hash(password, 12);
   user = new User({
-    name: req.body.name,
-    email: req.body.email,
-    password: req.body.password
+    name: name,
+    email: email,
+    password: hashedPassword,
+    cart: { items: [] }
   });
 
-  const result = user.save();
-  console.log(result);
+  const result = await user.save();
   res.redirect('/login');
 }

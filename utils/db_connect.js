@@ -1,6 +1,5 @@
 const winston = require('winston');
 const mongoose = require('mongoose');
-const User = require('../models/user');
 const PORT = process.env.PORT || 3000;
 
 module.exports = function(app, MONGODB_URI) {
