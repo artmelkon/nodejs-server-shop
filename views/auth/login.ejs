@@ -5,6 +5,11 @@
 <body>
 <%- include('../inc/nav.ejs') %>
 <main>
+<% if (errorMessage) { %>
+  <div class="user-message user-message--error" >
+    <%= errorMessage %>
+  </div>
+<% } %>
 <form class="login-form" action="/login" method="POST">
   <div class="form-control">
     <label for="email">Email</label>
@@ -14,7 +19,11 @@
     <label for="password">Password</label>
     <input type="text" name="password" if="password" placeholder="password">
   </div>
+  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
   <input class="btn" type="submit" value="Login">
 </form>
+<div style="width: 90%; text-align: center;margin-top: 2rem;">
+  <a href="/reset">Reset Password</a>
+</div>
 </main>
 <%- include('../inc/footer.ejs') %>

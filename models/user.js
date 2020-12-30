@@ -75,10 +75,6 @@ userSchema.methods.clearCart = function() {
   return this.save();
 }
 
-// userSchema.methods.postRegister = function() {
-
-// }
-
 module.exports = mongoose.model('User', userSchema);
 
 // const mongodb = require('mongodb');

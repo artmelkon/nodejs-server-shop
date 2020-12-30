@@ -232,6 +232,23 @@ form {
   color: white;
 }
 
+.user-message {
+  margin: 10px auto;
+  padding: 10px;
+  width: 90%;
+  background-color: lightskyblue;
+  border: 1px solid lightslategray;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.user-message--error {
+  background-color: red;
+  border-color: rgba(240, 84, 84, .8);
+  color: white;
+  font-weight: 700;
+}
+
 @media (min-width: 768px) {
   .main-header__nav {
     display: flex;
@@ -239,5 +256,9 @@ form {
 
   #side-menu-toggle {
     display: none;
+  }
+
+  .user-message {
+    width: 30rem;
   }
 }

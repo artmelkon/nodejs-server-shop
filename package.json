@@ -14,7 +14,9 @@
     "bcrypt": "^5.0.0",
     "body-parser": "^1.19.0",
     "chokidar": "^3.3.0",
+    "connect-flash": "^0.1.1",
     "connect-mongodb-session": "^2.4.1",
+    "csurf": "^1.11.0",
     "csvtojson": "^2.0.10",
     "ejs": "^3.0.1",
     "express": "^4.17.1",
@@ -23,6 +25,7 @@
     "joe": "^2.0.2",
     "mongodb": "^3.4.0",
     "mongoose": "^5.8.1",
+    "nodemailer": "^6.4.17",
     "pug": "^2.0.4",
     "winston": "^3.3.3"
   },

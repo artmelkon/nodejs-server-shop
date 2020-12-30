@@ -5,7 +5,7 @@ exports.getProducts = (req, res, next) => {
   // special rendering method from express pointing to file name
   Product.find()
     .then(products => {
-      console.log(products)
+      // console.log(products)
       res.render('shop/product-list', {
         prods: products,
         docTitle: 'All Products',
@@ -38,12 +38,10 @@ exports.getIndex = (req, res, next) => {
       res.render('shop/index', {
         prods: products,
         docTitle: 'Shop',
-        path: '/',
-        isAuthenticated: req.session.isLoggedIn,
-        userId: req.userId
+        path: '/'
       });
     })
-    .catch( err => console.log(err));
+    .catch( err => console.error(err));
 }
 
 exports.getCart = (req, res, next) => {
@@ -53,7 +51,7 @@ exports.getCart = (req, res, next) => {
     .execPopulate()
     .then( user => {
       const products = user.cart.items;
-      console.log(user.cart.items);
+      // console.log(user.cart.items);
       res.render('shop/cart', {
         docTitle: 'Your Cart',
         path: '/cart',
@@ -111,7 +109,8 @@ exports.postOrder = (req, res, next) => {
       console.log(user.cart.items)
       const order = new Order({
         user: {
-          name: req.session.user.name,
+          name: req.user.name,
+          email: req.user.email,
           userId: req.user
         },
         products: products
