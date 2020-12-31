@@ -3,10 +3,11 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const express = require('express');
-const User = require('../models/user');
 const csrf = require('csurf');
 const MongoDBStore = require('connect-mongodb-session')(session);
 const flash = require('connect-flash');
+
+const User = require('../models/user');
 
 module.exports = function(app, MONGODB_URI) {
   const store = new MongoDBStore({

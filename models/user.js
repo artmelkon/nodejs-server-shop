@@ -20,6 +20,8 @@ const userSchema = new Schema({
     minlength: 5,
     maxlength: 1024
   },
+  resetToken: String,
+  resetTokenExpiration: Date,
   cart: {
     items: [{
       productId: { 
