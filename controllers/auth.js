@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 const { transport } = require('winston');
 const nodemailer = require('nodemailer');
 const sendgridTransport = require('nodemailer-sendgrid-transport');
+const { validationResult } = require('express-validator/check');
 
 const User = require('../models/user');
 
@@ -23,7 +24,8 @@ exports.getLogin = (req, res, next) => {
   res.render('auth/login', {
     path: '/login',
     docTitle: 'User Login',
-    errorMessage: message
+    errorMessage: message,
+    validationErrors: []
   });
 }
 
@@ -32,11 +34,21 @@ exports.postLogin = (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
 
+  const errors = validationResult(req);
+  if(!errors.isEmpty()) {
+    return res.status(422).render('auth/login', {
+      path: '/login',
+      docTitle: 'Logoin',
+      errorMessage: errors.array()[0].msg,
+      validationErrors: errors.array()
+    })
+  }
+  
   User.findOne({ email: email })
     .then(async user => {
       if(!user) {
         req.flash('error', 'Invalid email.');
-        return res.redirect('/login');
+        return res.status(400).redirect('/login');
       }
       const validPassword = await bcrypt.compare(password, user.password);
       if(!validPassword) {
@@ -65,7 +77,7 @@ exports.getRegister = (req, res) => {
   message = message.length > 0 ? message[0] : null;
   res.render('auth/register', {
     path: '/register',
-    docTitle: 'Register',
+    docTitle: 'Registration',
     errorMessage: message
   });
 }
@@ -75,6 +87,17 @@ exports.postRegister = async (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
   const confirmPassword = req.body.cofirmPassword;
+  const errors = validationResult(req);
+  /* validate registration */
+  if(!errors.isEmpty()) {
+    // console.log(errors.array())
+    return res.status(422).render('auth/register', {
+      path: '/register',
+      docTitle: 'Registration',
+      errorMessage: errors.array()[0].msg
+    });
+  }
+
   let user = await User.findOne({ email: email });
   if(user) {
     req.flash('error', 'Email exists, please try different email.')

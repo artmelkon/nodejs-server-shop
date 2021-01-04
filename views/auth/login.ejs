@@ -13,7 +13,7 @@
 <form class="login-form" action="/login" method="POST">
   <div class="form-control">
     <label for="email">Email</label>
-    <input type="email" name="email" id="email" placeholder="email">
+    <input class="<%= validationErrors.find(e => e.param === 'email') ? 'invalid' : '' %>" type="email" name="email" id="email" placeholder="email">
   </div>
   <div class="form-control">
     <label for="password">Password</label>
