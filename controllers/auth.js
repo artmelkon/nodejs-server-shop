@@ -3,14 +3,13 @@ const bcrypt = require('bcrypt');
 const { transport } = require('winston');
 const nodemailer = require('nodemailer');
 const sendgridTransport = require('nodemailer-sendgrid-transport');
-const { validationResult } = require('express-validator/check');
+const { validationResult } = require('express-validator');
 
 const User = require('../models/user');
 
 const transporter = nodemailer.createTransport(sendgridTransport({
   auth: {
     api_key: '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'
-
   }
 }));
 
@@ -87,6 +86,7 @@ exports.postRegister = async (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
   const confirmPassword = req.body.cofirmPassword;
+  
   const errors = validationResult(req);
   /* validate registration */
   if(!errors.isEmpty()) {
