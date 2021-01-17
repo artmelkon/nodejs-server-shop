@@ -158,13 +158,16 @@ exports.getInvoice = (req, res, next) => {
       pdfDoc.fontSize(22).text('INVOICE', {
         underline: true
       });
-      pdfDoc.text('--------------------');
+      pdfDoc.fontSize(16).text(`Order: ${order._id}`);
+      pdfDoc.moveDown();
       let totalPrice = 0;
       order.products.forEach(prod => {
         totalPrice += prod.quantity * prod.product.price;
-        pdfDoc.text(`Title: ${prod.product.title} - Quantity: ${prod.quantity} x $${prod.product.price}`);
+        pdfDoc.fontSize(12).text(`Title: ${prod.product.title} - Quantity: ${prod.quantity} x $${prod.product.price}`);
       });
-      pdfDoc.text(`Total Price: ${totalPrice}`);
+      pdfDoc.fontSize(10).text('--------------------------', {align: 'center'});
+      pdfDoc.moveDown();
+      pdfDoc.fontSize(18).fillColor('red').text(`Total Price: ${totalPrice}`, { align: 'center'});
       pdfDoc.end();
 
       // fs.readFile(invoicePath, (err, data) => {
