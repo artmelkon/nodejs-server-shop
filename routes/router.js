@@ -70,11 +70,10 @@ module.exports = function(app, MONGODB_URI) {
   })
 
   app.use((req, res, next) => {
-    // console.log(req.session.userId)
     if(!req.session.userId) return next();
     User.findById({_id: req.session.userId})
       .then(user => {
-      //  console.log(user)
+       console.log(user)
       if(!user) return next();
        req.user = user;
         next();
