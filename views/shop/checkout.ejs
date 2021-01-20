@@ -1,8 +1,34 @@
 <%- include('../inc/header') %>
+<link rel="stylesheet" href="/css/cart.css">
 </head>
 <body>
 <%- include('../inc/nav') %>
 <main>
   <!-- content goes here -->
+    <ul class="cart__item-list">
+      <% products.forEach( p => { %>
+        <li class="cart__item">
+          <h1><%= p.productId.title %></h1>
+          <h2>Quantity: <%= p.quantity %></h2>
+          <h4>Unit Price: <%= p.productId.price %></h4>
+        </li>
+      <% }) %>
+    </ul>
+    <div class="centered">
+      <h2>Total: <%= totalSum %></h2>
+    </div>
+    <div class="centered">
+      <button id="order-btn" class="btn">ORDER</button>
+      <script src="https://js.stripe.com/v3/"></script>
+      <script>
+        var stripe = Stripe('pk_live_AKfo1eGYa5VedbnXHhmXS22W');
+        var orderBtn = document.querySelector('#order-btn');
+        orderBtn.addEventListener('click', function() {
+          stripe.redirectToCheckout({
+            sessionId: '<%= sessionId %>'
+          })
+        })
+      </script>
+    </div>
 </main>
 <%- include('../inc/footer') %>
