@@ -90,6 +90,7 @@ module.exports = function(app, MONGODB_URI) {
   app.use(errorController._404page);
 
   app.use((error, req, res, next) => {
+    console.log(error)
     res.status(500).render('500', {
       path: '/500',
       docTitle: 'Error 500',

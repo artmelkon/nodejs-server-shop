@@ -21,13 +21,13 @@
       <button id="order-btn" class="btn">ORDER</button>
       <script src="https://js.stripe.com/v3/"></script>
       <script>
-        var stripe = Stripe('pk_live_AKfo1eGYa5VedbnXHhmXS22W');
-        var orderBtn = document.querySelector('#order-btn');
+        var stripe = Stripe('pk_test_51IBqDAGFDEmzm8v3kTMrkpRzDvwakKrPFzdiJAmdTJST5UqHVs3Hdy8FJAkb95TOr1EatC1ily5UVD1CHzHzstoo00wxcGqwDI');
+        var orderBtn = document.getElementById('order-btn');
         orderBtn.addEventListener('click', function() {
           stripe.redirectToCheckout({
             sessionId: '<%= sessionId %>'
-          })
-        })
+          });
+        });
       </script>
     </div>
 </main>

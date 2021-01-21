@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const strop = require('stripe')('sk_live_GoaQypPubNuOZqAa7rstmCY6')
+const stripe = require('stripe')('sk_test_51IBqDAGFDEmzm8v3Zky3wxlnqhday4fJiA78aGpUU7Ole2BCtkshDjNNawp9z6yACBgD13r8xTIe3bJKsNJgXiVC00YgcnzUZv');
 const PDFDocument = require('pdfkit');
 const Product = require('../models/product');
 const Order = require('../models/order');
@@ -167,7 +167,7 @@ exports.getCheckout = (req, res, next) => {
           return {
             name: p.productId.title,
             description: p.productId.description,
-            amount: p.productId.price * 100,
+            amount: Math.round(p.productId.price * 100),
             currency: 'usd',
             quantity: p.quantity
           }
@@ -193,6 +193,36 @@ exports.getCheckout = (req, res, next) => {
 }
 
 exports.getCheckoutSuccess = (req, res, next) => {
+  req.user
+    .populate('cart.items.productId')
+    .execPopulate()
+    .then(user => {
+      const products = user.cart.items.map(i => {
+        return { quantity: i.quantity, product: { ...i.productId._doc } }
+      });
+      // console.log('cart items', user.cart.items)
+      const order = new Order({
+        user: {
+          name: req.user.name,
+          email: req.user.email,
+          userId: req.user
+        },
+        products: products
+      });
+      return order.save();
+    })
+    .then(() => {
+      return req.user.clearCart();
+    })
+    .then(() => res.redirect('/orders'))
+    .catch(err => {
+      const error = new Error(err)
+      error.httpStatusCode = 500;
+      return next(error);
+    });
+}
+
+exports.postOrder = (req, res, next) => {
   req.user
     .populate('cart.items.productId')
     .execPopulate()
