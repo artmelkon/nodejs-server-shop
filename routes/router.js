@@ -48,7 +48,7 @@ module.exports = function(app, MONGODB_URI) {
   // imports
   const adminRoutes = require('./admin');
   const shopRoutes = require('./shop');
-  const authRouts = require('./auth');
+  const authRoutes = require('./auth');
 
   app.use(bodyParser.urlencoded({extended: false}));
   app.use(multer({ storage: fileStorage, fileFilter: fileFilter }).single('image'));
@@ -83,7 +83,7 @@ module.exports = function(app, MONGODB_URI) {
 
   app.use('/admin', adminRoutes);
   app.use(shopRoutes);
-  app.use(authRouts);
+  app.use(authRoutes);
 
   app.get('/500', errorController._500page);
   // 404 not found page
